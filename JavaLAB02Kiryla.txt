@@ -1,0 +1,89 @@
+// Кирилло Дмитрий, 2 курс, 5 группа ММФ БГУ
+// Вариант 4
+// Найти сумму элементов матрицы, расположенных между первым и
+// вторым положительными элементами каждой строки.
+package com.metanit;
+import java.io.*;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class lab01 {
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+        int i = 0, j =0;
+        System.out.print("Enter the quantity of rows in a matrix: ");
+        if (scanner.hasNextInt()) {
+            i = scanner.nextInt();
+            System.out.print("Enter the quantity of columns in a matrix: ");
+            j = scanner.nextInt();
+            if (i <= 0 || j <= 0){
+                System.out.println("You make a mistake! Please, enter a positive integer number\nWork is over!");
+                System.exit(0);
+            }
+        }
+        else {
+            System.out.println("You make a mistake! Please, enter an integer number\nWork is over!");
+            System.exit(0);
+        }
+        System.out.println();
+        System.out.println("You need to input " + i + "x"+ j + " numbers!");
+        int arr[][] = new int[i][j];
+        for (int k = 0; k < i; k++) {
+            System.out.print("Enter " +(k+1)+ " row(add "+ j+" values): ");
+            for (int s = 0; s < j; s++) {
+                //System.out.print("Enter a[" + (k+1) + "][" + (s+1)+ "] : ");
+                if (scanner.hasNextInt()) {
+                    arr[k][s] = scanner.nextInt();
+                }
+                else {
+                    System.out.println("You make a mistake! Please, enter an integer number\nWork is over!");
+                    System.exit(0);
+                }
+            }
+        }
+        System.out.println();
+        System.out.println("Your matrix: ");
+        for (int k = 0; k < i; k++){
+            for (int s = 0; s < j; s++) {
+                System.out.print(arr[k][s]+"\t");
+            }
+            System.out.print("\n");
+        }
+        System.out.println();
+
+        int sum = 0;
+        byte check = 0;
+        for (int k = 0; k < i; k++) {
+            for (int s = 0; s < j; s++) {
+                if (check == 0 && arr[k][s] <= 0 && s == 0){
+                    check = 1;
+                    continue;
+                }
+                else {
+                        if (check == 1 && arr[k][s] <= 0) continue;
+                            else{
+                                if (check == 1 && arr[k][s] > 0) check=0; {
+                                    if (check == 0 && arr[k][s] < 0 && (k == i-1) && (s == j -1)) continue;
+                                    else {
+                                        if (arr[k][s] < 0) {
+                                            sum += arr[k][s];
+                                            check = 2;
+                                        } else if (check == 2) {
+                                            check = 0;
+                                            break;
+                                            }
+                                    }
+                                }
+                            }
+                    }
+                }
+        }
+        System.out.println("The sum is: " + sum);
+
+//        -1 2 -3 4
+//         0 -4	2 2
+//         1 -6	-7 -8
+//        -9 32	-10 -11
+    }
+}
